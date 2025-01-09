@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button-container a {
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Update Student</h1>
+
+    <form id="updateForm" method="POST" action="/student/update">
+        <label for="sid">Student ID</label>
+        <input type="number" id="sid" name="sid" required>
+
+        <label for="sname">Student Name</label>
+        <input type="text" id="sname" name="sname" required>
+
+        <label for="email">Student Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="course">Course</label>
+        <input type="text" id="course" name="course" required>
+
+        <input type="submit" value="Update Student">
+    </form>
+
+    <div id="message" class="message" style="display: none;"></div>
+
+    <div class="button-container">
+        <a href="Home.html">Go Back</a>
+    </div>
+
+    <script>
+        // Handle the form submission
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            // Show success message dynamically upon successful form submission
+            const messageDiv = document.getElementById('message');
+            messageDiv.style.display = 'none'; // Hide initially
+
+            this.addEventListener('submit', function() {
+                messageDiv.innerText = 'Processing request...';
+                messageDiv.style.display = 'block';
+            });
+        });
+    </script>
+
+</body>
+</html>

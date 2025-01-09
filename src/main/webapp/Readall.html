@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button-container a {
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student List</h1>
+
+    <div id="message" class="message" style="display: none;"></div>
+    
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be populated dynamically -->
+        </tbody>
+    </table>
+
+    <div class="button-container">
+        <a href="Home.html">Go Back</a>
+    </div>
+
+    <script>
+        // Fetch the student data from the server
+        fetch('student/readall')
+            .then(response => response.json()) // Assuming the server returns JSON data
+            .then(data => {
+                if (data.length === 0) {
+                    document.getElementById('message').innerText = 'No students found';
+                    document.getElementById('message').style.display = 'block';
+                } else {
+                    const tableBody = document.getElementById('studentTable').getElementsByTagName('tbody')[0];
+                    data.forEach(student => {
+                        let row = tableBody.insertRow();
+                        row.innerHTML = `
+                            <td>${student.sid}</td>
+                            <td>${student.sname}</td>
+                            <td>${student.email}</td>
+                            <td>${student.course}</td>
+                        `;
+                    });
+                }
+            })
+            .catch(error => {
+                document.getElementById('message').innerText = 'An error occurred while fetching student data.';
+                document.getElementById('message').style.display = 'block';
+            });
+    </script>
+
+</body>
+</html>
